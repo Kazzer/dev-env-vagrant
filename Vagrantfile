@@ -15,5 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision 'file', source: 'scripts/common.sh', destination: '/tmp/vagrant/common.sh'
+
+    # config.vm.provision 'file', source: 'etc/motd', destination: '/tmp/root/etc/motd'
+    config.vm.provision 'file', source: 'etc/HOSTNAME', destination: '/tmp/root/etc/HOSTNAME'
     config.vm.provision 'shell', path: 'scripts/init.sh'
 end
