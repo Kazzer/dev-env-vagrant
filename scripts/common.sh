@@ -1,5 +1,6 @@
 #!/bin/bash -eu
 v=1
+default_user="developer"
 
 function log_info {
     if [ ${v} -ge 1 ]
@@ -34,4 +35,12 @@ function sed_root {
     local source_file=$1
     local pattern=$2
     sudo sed -i "${pattern}" "${source_file}"
+}
+
+function create_file_user {
+    local user=$1
+    local source_file=$2
+    local destination=$3
+    sudo -u "${user}" mkdir -p "$(dirname "${destination}")"
+    sudo -u "${user}" cp "${source_file}" "${destination}"
 }
