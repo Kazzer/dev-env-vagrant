@@ -13,4 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.cpus = 4
         vb.memory = 3072
     end
+
+    config.vm.provision 'file', source: 'scripts/common.sh', destination: '/tmp/vagrant/common.sh'
 end
