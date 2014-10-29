@@ -19,4 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # config.vm.provision 'file', source: 'etc/motd', destination: '/tmp/root/etc/motd'
     config.vm.provision 'file', source: 'etc/HOSTNAME', destination: '/tmp/root/etc/HOSTNAME'
     config.vm.provision 'shell', path: 'scripts/init.sh'
+
+    config.vm.provision 'shell', path: 'scripts/install_update_repos.sh'
 end
