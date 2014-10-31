@@ -3,8 +3,14 @@
 VAGRANTFILE_API_VERSION = "2"
 
 DEFAULT_USER = "developer"
+PROVISIONED = File.file?(".vagrant/machines/default/virtualbox/id")
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    if PROVISIONED
+        config.ssh.username = "#{DEFAULT_USER}"
+        config.ssh.private_key_path = "~/.ssh/id_rsa"
+    end
+
     config.vm.box = "com.kadeem/bottle64"
     config.vm.guest = :suse
     # config.vm.network "forwarded_port", guest: 80, host: 8080
