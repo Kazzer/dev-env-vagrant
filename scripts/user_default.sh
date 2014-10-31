@@ -48,5 +48,4 @@ then
 
     log_debug "Setting password for ${user}..."
     echo "${user}:${password}" | sudo /usr/sbin/chpasswd
-    sudo chage -d 0 "${user}"
 fi
