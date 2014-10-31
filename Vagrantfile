@@ -2,6 +2,8 @@
 # vi: set ft=ruby :
 VAGRANTFILE_API_VERSION = "2"
 
+DEFAULT_USER = 'developer'
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "com.kadeem/bottle64"
     config.vm.guest = :suse
@@ -13,6 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.cpus = 4
         vb.memory = 3072
     end
+
+    config.vm.provision 'shell', inline: 'echo "$*" >/tmp/DEFAULT_USER', args: "#{DEFAULT_USER}"
 
     config.vm.provision 'file', source: 'scripts/common.sh', destination: '/tmp/vagrant/common.sh'
 

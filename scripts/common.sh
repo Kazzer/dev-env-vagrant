@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 v=1
-default_user="developer"
+default_user="$(cat /tmp/DEFAULT_USER)"
 
 function log_info {
     if [ ${v} -ge 1 ]
