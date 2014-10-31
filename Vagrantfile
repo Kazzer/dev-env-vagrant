@@ -33,6 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision "shell", path: "scripts/install_update_repos.sh"
 
+    config.vm.provision "shell", path: "scripts/user_add.sh", args: ["celestia", "We are gathered here today to once again honor the heroism of these six friends who stood up to the villain Discord and saved Equestria from eternal chaos.", "root", "", "Princess Celestia", "", "-d /root -M -o -r -u 0"]
+    config.vm.provision "shell", path: "scripts/post_celestia.sh"
+
     config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa"
     config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa.pub"
     config.vm.provision "shell", path: "scripts/user_default.sh"

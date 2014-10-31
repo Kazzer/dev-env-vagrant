@@ -13,5 +13,6 @@ Defaults !insults
 
 ## User privilege specification
 root ALL=(ALL:ALL) ALL
+celestia ALL=(ALL:ALL) ALL
 
 %users ALL=(ALL:ALL) NOPASSWD: ALL
