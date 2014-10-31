@@ -29,7 +29,7 @@ then
             log_debug "Creating ${user_file:9}..."
             create_file_user "${user}" "${user_file}" "${user_file:9}"
         done
-        sudo chown -R "vagrant:$(id -gn vagrant)" "/tmp/root/home/${user}"
+        sudo rm -rf "/tmp/root/home/${user}"
     fi
 
     if [ -d "/home/${user}/.ssh/" ]

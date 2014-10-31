@@ -6,6 +6,7 @@ if [ -r /tmp/root/etc/motd ]
 then
     log_debug "    Set MOTD to $(cat /tmp/root/etc/motd)"
     migrate_file_root /tmp/root/etc/motd /etc/motd
+    sudo rm -f /tmp/root/etc/motd
 fi
 
 log_info "Configuring /etc/skel..."
@@ -16,6 +17,7 @@ then
         log_debug "    Creating ${skel_file:9}..."
         create_file_root "${skel_file}" "${skel_file:9}"
     done
+    sudo rm -rf /tmp/root/etc/skel
 fi
 
 log_info "Configuring /etc/init.d..."
@@ -27,6 +29,7 @@ then
         create_file_root "${initd_file}" "${initd_file:9}"
         sudo /sbin/insserv "$(basename "${initd_file}")"
     done
+    sudo rm -rf /tmp/root/etc/init.d
 fi
 
 log_info "Locking root user..."
