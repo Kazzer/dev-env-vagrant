@@ -21,13 +21,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.cpus = 4
         vb.memory = 3072
     end
+    config.vm.hostname = "development.vagrant"
 
     config.vm.provision "shell", inline: "echo $* >/tmp/DEFAULT_USER", args: "#{DEFAULT_USER}"
 
     config.vm.provision "file", source: "scripts/common.sh", destination: "/tmp/vagrant/common.sh"
 
     # config.vm.provision "file", source: "etc/motd", destination: "/tmp/root/etc/motd"
-    config.vm.provision "file", source: "etc/HOSTNAME", destination: "/tmp/root/etc/HOSTNAME"
     config.vm.provision "file", source: "etc/skel", destination: "/tmp/root/etc/skel"
     config.vm.provision "shell", path: "scripts/init.sh"
 

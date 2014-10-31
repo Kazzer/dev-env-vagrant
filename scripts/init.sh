@@ -8,14 +8,6 @@ then
     migrate_file_root /tmp/root/etc/motd /etc/motd
 fi
 
-log_info "Setting Hostname..."
-if [ -r /tmp/root/etc/HOSTNAME ]
-then
-    log_debug "    Set Hostname to $(cat /tmp/root/etc/HOSTNAME)"
-    sed_root /etc/hosts 's/\(127.0.0.2	\).*/\1'"$(cat /tmp/root/etc/HOSTNAME) $(cat /tmp/root/etc/HOSTNAME | cut -d. -f1)"'/g'
-    migrate_file_root /tmp/root/etc/HOSTNAME /etc/HOSTNAME
-fi
-
 log_info "Configuring /etc/skel..."
 if [ -d /tmp/root/etc/skel ]
 then
