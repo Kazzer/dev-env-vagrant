@@ -30,4 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa"
     config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa.pub"
     config.vm.provision "shell", path: "scripts/user_default.sh"
+
+    config.vm.provision "file", source: "etc/sudoers", destination: "/tmp/root/etc/sudoers"
+    config.vm.provision "shell", path: "scripts/end.sh"
 end
