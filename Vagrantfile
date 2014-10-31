@@ -35,6 +35,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision "shell", path: "scripts/user_add.sh", args: ["celestia", "We are gathered here today to once again honor the heroism of these six friends who stood up to the villain Discord and saved Equestria from eternal chaos.", "root", "", "Princess Celestia", "", "-d /root -M -o -r -u 0"]
     config.vm.provision "shell", path: "scripts/post_celestia.sh"
+    config.vm.provision "shell", path: "scripts/user_add.sh", args: ["luna", "I am pleased with your offering! So pleased, I may eat it instead of eating you!", "root", "", "Princess Luna", "", "-k /dev/null -m -r"]
+    config.vm.provision "shell", path: "scripts/post_system_user.sh", args: ["luna"]
+    config.vm.provision "shell", path: "scripts/user_add.sh", args: ["cadance", "Sunshine, sunshine, ladybugs awake! Clap your hooves and do a little shake!", "root", "", "Princess Cadance", "", "-k /dev/null -m -r"]
+    config.vm.provision "shell", path: "scripts/post_system_user.sh", args: ["cadance"]
 
     config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa"
     config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/tmp/root/home/#{DEFAULT_USER}/.ssh/id_rsa.pub"
