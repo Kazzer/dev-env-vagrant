@@ -6,7 +6,7 @@
             "version": "13.1.20141020",
             "providers": [{
                 "name": "virtualbox",
-                "url": "http://kadeem.com./pongs/vagrant/openSUSE-13.1-base-20141020.box",
+                "url": "https://kadeem.com/pongs/vagrant/openSUSE-13.1-base-20141020.box",
                 "checksum_type": "sha1",
                 "checksum": "ae5931f57d760230d70d6e7d7fc2b9a3a52bf7f7"
             }]
@@ -15,9 +15,18 @@
             "version": "13.1.20141027",
             "providers": [{
                 "name": "virtualbox",
-                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.1-base.box",
+                "url": "https://kadeem.com/pongs/vagrant/openSUSE-13.1-base-20141027.box",
                 "checksum_type": "sha1",
                 "checksum": "53e45e2f92fd7a87d25af392437b8b8aeaad5e9a"
+            }]
+        },
+        {
+            "version": "13.1.20141031",
+            "providers": [{
+                "name": "virtualbox",
+                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.1-base.box",
+                "checksum_type": "sha1",
+                "checksum": "4b2135a0f6e72d105d018c0048d21bd7d6024d8e"
             }]
         }
     ]
