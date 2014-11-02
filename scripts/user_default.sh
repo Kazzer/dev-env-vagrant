@@ -9,7 +9,7 @@ password="$(uuidgen)"
 user_full_name="${user^}"
 
 # primary group
-primary_group="users"
+primary_group="unclassified"
 
 # default shell
 shell="/bin/bash"
