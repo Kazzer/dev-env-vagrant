@@ -12,7 +12,6 @@ Defaults env_keep = "LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION LC_ME
 Defaults !insults
 
 ## User privilege specification
-root ALL=(ALL:ALL) !ALL
 celestia ALL=(ALL:ALL) ALL
 
 %unclassified ALL=(ALL:ALL) NOEXEC: ALL, (%restricted,%confidential,%secret,%topsecret:confidential,secret,topsecret) NOEXEC: !ALL
@@ -31,4 +30,4 @@ rarity ALL=(celestia:topsecret) NOPASSWD: /usr/bin/gem
 twilight ALL=(celestia:topsecret) NOPASSWD: /bin/ln,/bin/chmod
 
 %topsecret ALL=(ALL:ALL) NOPASSWD: ALL
-kadeem ALL=(ALL:ALL) NOPASSWD: ALL
+root ALL=(ALL:ALL) !ALL
