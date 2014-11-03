@@ -22,7 +22,7 @@ dependencies=()
 
 log_info "Installing ${name}"
 
-for conflict in ${conflicts[@]}
+for conflict in ${conflicts[@]:-}
 do
     if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No packages found." ]
     then
@@ -31,7 +31,7 @@ do
     fi
 done
 
-for dependency in ${dependencies[@]}
+for dependency in ${dependencies[@]:-}
 do
     dep_package=(${dependency/:/ })
     dep_installer=(${dep_package[@]:1})
