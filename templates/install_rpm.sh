@@ -19,26 +19,32 @@ dependencies=()
 
 log_info "Installing ${name}"
 
-for conflict in ${conflicts[@]:-}
-do
-    if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No packages found." ]
-    then
-        log_debug "Removing conflicting package ${conflict}..."
-        sudo zypper --non-interactive remove "${conflict}"
-    fi
-done
+if [ ${#conflicts[@]} -gt 0 ]
+then
+    for conflict in "${conflicts[@]}"
+    do
+        if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No packages found." ]
+        then
+            log_debug "Removing conflicting package ${conflict}..."
+            sudo zypper --non-interactive remove "${conflict}"
+        fi
+    done
+fi
 
-for dependency in ${dependencies[@]:-}
-do
-    dep_package=(${dependency/:/ })
-    dep_installer=(${dep_package[@]:1})
+if [ ${#dependencies[@]} -gt 0 ]
+then
+    for dependency in "${dependencies[@]}"
+    do
+        dep_package=(${dependency/:/ })
+        dep_installer=(${dep_package[@]:1})
 
-    if [ "$(zypper --non-interactive search --match-exact -i -t package "${dep_package}" | tail -1)" == "No packages found." ]
-    then
-        log_debug "Installing dependency package ${dep_package}..."
-        sudo "${dep_installer[@]:-${installer[@]}}" "${dep_package}"
-    fi
-done
+        if [ "$(zypper --non-interactive search --match-exact -i -t package "${dep_package}" | tail -1)" == "No packages found." ]
+        then
+            log_debug "Installing dependency package ${dep_package}..."
+            sudo "${dep_installer[@]:-${installer[@]}}" "${dep_package}"
+        fi
+    done
+fi
 
 if [ -f "/tmp/${package}" ]
 then
