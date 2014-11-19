@@ -69,6 +69,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.provision "shell", path: "scripts/user_default.sh"
 
         config.vm.provision "file", source: "etc/sudoers", destination: "/tmp/root/etc/sudoers"
+        config.vm.provision "file", source: "etc/tmpfiles.d/tmp.conf", destination: "/tmp/root/etc/tmpfiles.d/tmp.conf"
         config.vm.provision "shell", path: "scripts/end.sh"
     end
 end

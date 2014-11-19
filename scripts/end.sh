@@ -19,6 +19,12 @@ then
     rm -rf /tmp/vagrant
 fi
 
+log info "Configuring tmpfiles clean up"
+if [ -f /tmp/root/etc/tmpfiles.d/tmp.conf ]
+then
+    create_file_root /tmp/root/etc/tmpfiles.d/tmp.conf /etc/tmpfiles.d/tmp.conf
+fi
+
 log info "Updating sudoers..."
 if [ -r /tmp/root/etc/sudoers ]
 then
