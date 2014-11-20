@@ -48,6 +48,9 @@ fi
 
 if [ -f "/tmp/${package}" ]
 then
-    log_debug "Installing ${package}..."
-    sudo "${installer[@]}" "/tmp/${package}"
+    if rpm -V -p "/tmp/${package}" | grep missing &>/dev/null
+    then
+        log_debug "Installing ${package}..."
+        sudo "${installer[@]}" "/tmp/${package}"
+    fi
 fi
