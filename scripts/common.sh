@@ -42,5 +42,10 @@ function create_file_user {
     local source_file=$2
     local destination=$3
     sudo -u "${user}" mkdir -p "$(dirname "${destination}")"
-    sudo -u "${user}" cp "${source_file}" "${destination}"
+    if [ ! -f "${destination}" ]
+    then
+        sudo -u "${user}" cp "${source_file}" "${destination}"
+    else
+        sudo -u "${user}" cat "${source_file}" >>"${destination}"
+    fi
 }
