@@ -27,7 +27,7 @@ then
     do
         log_debug "    Creating ${initd_file:9}..."
         create_file_root "${initd_file}" "${initd_file:9}"
-        sudo /sbin/insserv "$(basename "${initd_file}")"
+        sudo /sbin/insserv "${initd_file##*/}"
     done
     sudo rm -rf /tmp/root/etc/init.d
 fi

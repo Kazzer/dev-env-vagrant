@@ -35,7 +35,8 @@ then
         git remote add "${remote}" "${project_url}"
     fi
 
-    default_branch="$(basename "$(git ls-remote --heads "${remote}" | grep "$(git ls-remote "${remote}" HEAD | cut -f1)" | grep -v HEAD | cut -f2)")"
+    default_branch="$(git ls-remote --heads "${remote}" | grep "$(git ls-remote "${remote}" HEAD | cut -f1)" | grep -v HEAD | cut -f2)"
+    default_branch="${default_branch##*/}"
     git fetch "${remote}" "${default_branch}"
     git checkout "${default_branch}"
     popd &>/dev/null
