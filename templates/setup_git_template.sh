@@ -22,7 +22,7 @@ remote="origin"
 if [ ! -d "${path}" ]
 then
     log_info "Setting up ${project}"
-    sudo -u "${user}" mkdir -p "$(dirname "${path}")"
+    sudo -u "${user}" mkdir -p "${path%/*}"
 
     log_debug "Checking for git access from host..."
     echo $(ssh -o StrictHostKeyChecking=no git@github.com) &>/dev/null

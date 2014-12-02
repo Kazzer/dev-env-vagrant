@@ -27,7 +27,7 @@ function migrate_file_root {
 function create_file_root {
     local source_file=$1
     local destination=$2
-    sudo mkdir -p "$(dirname "${destination}")"
+    sudo mkdir -p "${destination%/*}"
     sudo cp "${source_file}" "${destination}"
 }
 
@@ -41,7 +41,7 @@ function create_file_user {
     local user=$1
     local source_file=$2
     local destination=$3
-    sudo -u "${user}" mkdir -p "$(dirname "${destination}")"
+    sudo -u "${user}" mkdir -p "${destination%/*}"
     if [ ! -f "${destination}" ]
     then
         sudo -u "${user}" cp "${source_file}" "${destination}"
