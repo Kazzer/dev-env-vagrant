@@ -22,7 +22,7 @@ remote="origin"
 if [ ! -d "${path}" ]
 then
     log_info "Setting up ${project}"
-    sudo -u "${user}" mkdir -p "${path%/*}"
+    sudo -u "${user}" mkdir -p "${path}"
 
     log_debug "Checking for git access from host..."
     echo $(ssh -o StrictHostKeyChecking=no git@github.com) &>/dev/null
@@ -41,5 +41,5 @@ then
     git checkout "${default_branch}"
     popd &>/dev/null
 
-    sudo -u "${user}" cp -r "/tmp/${project_owner}/${project}/" "${path}"
+    sudo -u "${user}" cp -a --no-preserve=ownership "/tmp/${project_owner}/${project}/." "${path}"
 fi
