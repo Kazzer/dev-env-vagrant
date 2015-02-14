@@ -10,6 +10,15 @@
                 "checksum_type": "sha256",
                 "checksum": "d01539999ddf452827e01e9fcffb71ee063aee346541b6ed8b3925c3548e370a"
             }]
+        },
+        {
+            "version": "13.2.20150213",
+            "providers": [{
+                "name": "virtualbox",
+                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base.box",
+                "checksum_type": "sha256",
+                "checksum": "1d14b8694d3daa06f211ad88d0e59b649dd6b6ef34db0f18c09c605d765c9b85"
+            }]
         }
     ]
 }
