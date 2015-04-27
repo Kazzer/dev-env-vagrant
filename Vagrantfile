@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 VAGRANTFILE_API_VERSION = "2"
 
-DEFAULT_USER = "developer"
+DEFAULT_USER = ENV["USERNAME"] or ENV["USER"]
 PROVISIONED = File.file?(".vagrant/machines/default/virtualbox/id")
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
