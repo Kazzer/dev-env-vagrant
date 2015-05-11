@@ -6,7 +6,7 @@
             "version": "13.2.20141106",
             "providers": [{
                 "name": "virtualbox",
-                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base.box",
+                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base-20141106.box",
                 "checksum_type": "sha256",
                 "checksum": "d01539999ddf452827e01e9fcffb71ee063aee346541b6ed8b3925c3548e370a"
             }]
@@ -15,9 +15,18 @@
             "version": "13.2.20150213",
             "providers": [{
                 "name": "virtualbox",
-                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base.box",
+                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base-20150213.box",
                 "checksum_type": "sha256",
                 "checksum": "1d14b8694d3daa06f211ad88d0e59b649dd6b6ef34db0f18c09c605d765c9b85"
+            }]
+        },
+        {
+            "version": "13.2.20150511",
+            "providers": [{
+                "name": "virtualbox",
+                "url": "https://dl.dropboxusercontent.com/u/88777382/openSUSE-13.2-base.box",
+                "checksum_type": "sha256",
+                "checksum": "54334f9e9c2fc34e122260ff36f1bc24b64445a7cd4e8e9b015bbc5080b2b997"
             }]
         }
     ]
