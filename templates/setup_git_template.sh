@@ -42,4 +42,5 @@ then
     popd &>/dev/null
 
     sudo -u "${user}" cp -a --no-preserve=ownership "/tmp/${project_owner}/${project}/." "${path}"
+    sudo rm -rf "/tmp/${project_owner}/${project}"
 fi
