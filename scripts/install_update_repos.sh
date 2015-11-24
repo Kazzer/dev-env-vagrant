@@ -1,5 +1,6 @@
-#!/bin/bash -eu
+#!/usr/bin/env bash
+set -eu
 source '/tmp/vagrant/common.sh'
 
-log_info "Refreshing zypper repositories"
+log info "Refreshing zypper repositories"
 sudo zypper --non-interactive refresh
