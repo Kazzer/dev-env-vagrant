@@ -1,32 +1,29 @@
 #!/bin/bash -eu
 source '/tmp/vagrant/common.sh'
 
-# human readable name for the package
-name="Example"
-
-# file name for tar
-package="example-package.tar.gz"
+# package name for zypper
+package="${1}"
 
 # target directory
-target="/opt/example-package/"
+target="${2}"
 
 # command for the installer (eg. zypper install, pip install, gem install)
 installer=(tar -xzvf)
 
 # list of conflicting packages (space-separated inside parentheses)
-conflicts=()
+conflicts=(${4:-})
 
 # list of dependecies that aren't automatically resolved (space-separated inside parentheses)
 # you can specify a specific installer for the dependency using the format 'package:installer'
-dependencies=()
+dependencies=(${3:-})
 
-log_info "Installing ${name}"
+log info "Installing ${package}"
 
 for conflict in "${conflicts[@]:+${conflicts[@]}}"
 do
-    if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No packages found." ]
+    if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No matching items found." ]
     then
-        log_debug "Removing conflicting package ${conflict}..."
+        log debug "Removing conflicting package ${conflict}..."
         sudo zypper --non-interactive remove "${conflict}"
     fi
 done
@@ -36,16 +33,16 @@ do
     dep_package=(${dependency/:/ })
     dep_installer=(${dep_package[@]:1})
 
-    if [ "$(zypper --non-interactive search --match-exact -i -t package "${dep_package}" | tail -1)" == "No packages found." ]
+    if [ "$(zypper --non-interactive search --match-exact -i -t package "${dep_package}" | tail -1)" == "No matching items found." ]
     then
-        log_debug "Installing dependency package ${dep_package}..."
+        log debug "Installing dependency package ${dep_package}..."
         sudo "${dep_installer[@]:-${installer[@]}}" "${dep_package}"
     fi
 done
 
 if [ -f "/tmp/${package}" ]
 then
-    log_debug "Installing ${package}..."
+    log debug "Installing ${package}..."
     sudo mkdir -p "${target}"
     sudo "${installer[@]}" "/tmp/${package}" -C "${target}"
     sudo rm -f "/tmp/${package}"

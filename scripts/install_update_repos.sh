@@ -2,5 +2,5 @@
 set -eu
 source '/tmp/vagrant/common.sh'
 
-log info "Refreshing zypper repositories"
-sudo zypper --non-interactive refresh
+log info "Updating zypper packages"
+sudo zypper --non-interactive update

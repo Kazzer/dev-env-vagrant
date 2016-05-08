@@ -1,0 +1,41 @@
+#!/bin/bash -eu
+source '/tmp/vagrant/common.sh'
+
+# package name for zypper
+package="${1}"
+
+# command for the installer (eg. zypper install, pip install, gem install)
+installer=(zypper --non-interactive install --auto-agree-with-licenses)
+
+# list of conflicting packages (space-separated inside parentheses)
+conflicts=(${3:-})
+
+# list of dependecies that aren't automatically resolved (space-separated inside parentheses)
+# you can specify a specific installer for the dependency using the format 'package:installer'
+dependencies=(${2:-})
+
+log info "Installing ${package}"
+
+for conflict in "${conflicts[@]:+${conflicts[@]}}"
+do
+    if [ "$(zypper --non-interactive search --match-exact -i -t package "${conflict}" | tail -1)" != "No matching items found." ]
+    then
+        log debug "Removing conflicting package ${conflict}..."
+        sudo zypper --non-interactive remove "${conflict}"
+    fi
+done
+
+for dependency in "${dependencies[@]:+${dependencies[@]}}"
+do
+    dep_package=(${dependency/:/ })
+    dep_installer=(${dep_package[@]:1})
+
+    if [ "$(zypper --non-interactive search --match-exact -i -t package "${dep_package}" | tail -1)" == "No matching items found." ]
+    then
+        log debug "Installing dependency package ${dep_package}..."
+        sudo "${dep_installer[@]:-${installer[@]}}" "${dep_package}"
+    fi
+done
+
+log debug "Installing ${package}..."
+sudo "${installer[@]}" "${package}"

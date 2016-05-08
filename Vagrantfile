@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.ssh.private_key_path = "~/.ssh/id_rsa"
     end
 
-    config.vm.box = "com.kadeem/harlequin64"
+    config.vm.box = "com.kadeem/tumbleweed64"
     config.vm.guest = :suse
     # config.vm.network "forwarded_port", guest: 80, host: 8080
     # config.vm.network "public_network"
