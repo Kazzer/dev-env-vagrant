@@ -8,11 +8,11 @@ package="${1}"
 installer=(pip install)
 
 # list of conflicting packages (space-separated inside parentheses)
-conflicts=(${3:-})
+eval "conflicts=(${3:-})"
 
 # list of dependecies that aren't automatically resolved (space-separated inside parentheses)
 # you can specify a specific installer for the dependency using the format 'package:installer'
-dependencies=(${2:-})
+eval "dependencies=(${2:-})"
 
 log info "Installing ${package}"
 

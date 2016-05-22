@@ -11,11 +11,11 @@ target="${2}"
 installer=(tar -xzvf)
 
 # list of conflicting packages (space-separated inside parentheses)
-conflicts=(${4:-})
+eval "conflicts=(${4:-})"
 
 # list of dependecies that aren't automatically resolved (space-separated inside parentheses)
 # you can specify a specific installer for the dependency using the format 'package:installer'
-dependencies=(${3:-})
+eval "dependencies=(${3:-})"
 
 log info "Installing ${package}"
 
