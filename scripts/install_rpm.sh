@@ -42,7 +42,7 @@ then
     if ( rpm -V -p "/tmp/${package}" | grep missing &>/dev/null )
     then
         log debug "Installing ${package}..."
-        sudo "${installer[@]}" "${package}"
+        sudo "${installer[@]}" /tmp/"${package}"
     fi
     sudo rm -f "/tmp/${package}"
 fi
