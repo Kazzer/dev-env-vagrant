@@ -14,7 +14,7 @@ project_url="git@github.com:${project_owner}/${project}.git"
 user="${default_user}"
 
 # path to setup repository
-path="/opt/${project_owner}/${project}/"
+path="/home/${user}/${project_owner}/${project}/"
 
 # name for the remote
 remote="origin"
