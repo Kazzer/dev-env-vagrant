@@ -8,5 +8,4 @@ Prerequisites:
 - vagrant
 
 Setup:
-- vagrant box add file://metadata.json
-- (alternative) vagrant box add https://kadeem.com/pongs/vagrant/metadata.json
+- vagrant box add https://kadeem.com./pongs/vagrant/tumbleweed64/metadata.json

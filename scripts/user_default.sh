@@ -6,9 +6,7 @@ source '/tmp/vagrant/common.sh'
 user="${default_user}"
 password="$(uuidgen)"
 
-# GECOS field (comma-separated)
-# Full name, Building and room number, Phone number, Other contact information
-gecos="${user^},,,"
+user_full_name="${user^}"
 
 # primary group
 primary_group="users"
@@ -19,7 +17,7 @@ shell="/bin/bash"
 if [ ! "$(id "${user}" 2>/dev/null)" ]
 then
     log info "Configuring user ${user}"
-    sudo /usr/sbin/useradd -c "${gecos}" -g "${primary_group}" -m -N -s "${shell}" "${user}"
+    sudo /usr/sbin/useradd -c "${user_full_name}" -g "${primary_group}" -m -N -s "${shell}" "${user}"
 
     log debug "Creating user files..."
     if [ -d "/tmp/root/home/${user}" ]

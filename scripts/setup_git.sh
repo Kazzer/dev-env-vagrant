@@ -1,11 +1,11 @@
 #!/bin/bash -eu
 source '/tmp/vagrant/common.sh'
 
-# project name
-project="example"
-
 # project owner
-project_owner="example"
+project_owner="${1}"
+
+# project name
+project="${2}"
 
 # project url (https or ssh)
 project_url="git@github.com:${project_owner}/${project}.git"
@@ -21,10 +21,10 @@ remote="origin"
 
 if [ ! -d "${path}" ]
 then
-    log_info "Setting up ${project}"
+    log info "Setting up ${project}"
     sudo -u "${user}" mkdir -p "${path}"
 
-    log_debug "Checking for git access from host..."
+    log debug "Checking for git access from host..."
     echo $(ssh -o StrictHostKeyChecking=no git@github.com) &>/dev/null
 
     mkdir -p "/tmp/${project_owner}/${project}/"
@@ -42,5 +42,5 @@ then
     popd &>/dev/null
 
     sudo -u "${user}" cp -a --no-preserve=ownership "/tmp/${project_owner}/${project}/." "${path}"
-    sudo rm -rf "/tmp/${project_owner}/${project}"
+    sudo rm -rf "/tmp/${project_owner}"
 fi
