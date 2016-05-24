@@ -22,7 +22,7 @@ extras="${7:-}"
 if ( ! id "${user}" 2>/dev/null )
 then
     log info "Configuring user ${user}"
-    sudo /usr/sbin/useradd -c "${gecos}" -g "${primary_group}" -G "${secondary_groups}" -k /dev/null -m -N "${extras}" -s "${shell}" "${user}"
+    sudo /usr/sbin/useradd -c "${gecos}" -g "${primary_group}" -G "${secondary_groups}" -N ${extras} -s "${shell}" "${user}"
 
     log debug "Creating user files..."
     if [ -d "/tmp/root/home/${user}" ]
