@@ -1,1 +1,1 @@
-alias stun='~/.stun/stun.py'
+alias stun='dig +short myip.opendns.com @resolver2.opendns.com'
