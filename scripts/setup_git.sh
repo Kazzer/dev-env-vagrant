@@ -14,33 +14,36 @@ project_url="git@github.com:${project_owner}/${project}.git"
 user="${default_user}"
 
 # path to setup repository
-path="/home/${user}/${project_owner}/${project}/"
+path="/home/${user}/${project_owner}/"
 
-# name for the remote
-remote="origin"
+log debug "Checking for git access from host..."
+echo $(ssh -o StrictHostKeyChecking=no git@github.com) &>/dev/null
 
 if [ ! -d "${path}" ]
 then
-    log info "Setting up ${project}"
-    sudo -u "${user}" mkdir -p "${path}"
+    mkdir -p "${path}"
+    pushd "${path}" &>/dev/null
+        sudo -u "${user}" git init
+    popd &>/dev/null
+fi
 
-    log debug "Checking for git access from host..."
-    echo $(ssh -o StrictHostKeyChecking=no git@github.com) &>/dev/null
-
-    mkdir -p "/tmp/${project_owner}/${project}/"
-    pushd "/tmp/${project_owner}/${project}/" &>/dev/null
-    git init
-    if [ -z "$(git remote | grep "${remote}")" ]
+pushd "${path}" &>/dev/null
+    if ( ! git remote show "${project}" &>/dev/null)
     then
-        git remote add "${remote}" "${project_url}"
+        sudo -u "${user}" git remote add "${project}" "${project_url}"
     fi
 
-    default_branch="$(git ls-remote --heads "${remote}" | grep "$(git ls-remote "${remote}" HEAD | cut -f1)" | grep -v HEAD | cut -f2)"
-    default_branch="${default_branch##*/}"
-    git fetch "${remote}" "${default_branch}"
-    git checkout "${default_branch}"
-    popd &>/dev/null
+    default_branch="$(cut -f2 <(grep -v HEAD <(grep "$(cut -f1 <(git ls-remote "${project}" HEAD))" <(git ls-remote --heads "${project}"))))"
+    default_branch="${default_branch#refs/heads/}"
+    sudo -u "${user}" git fetch "${project}" "${default_branch}"
 
-    sudo -u "${user}" cp -a --no-preserve=ownership "/tmp/${project_owner}/${project}/." "${path}"
-    sudo rm -rf "/tmp/${project_owner}"
-fi
+    if [ "$(wc -l < <(git branch --list "${project}"))" -eq 0 ]
+    then
+        sudo -u "${user}" git checkout --orphan "${project}"
+    else
+        sudo -u "${user}" git checkout "${project}"
+    fi
+
+    sudo -u "${user}" git reset --hard "${project}/${default_branch}"
+    sudo -u "${user}" git branch --set-upstream-to="${project}/${default_branch}"
+popd &>/dev/null

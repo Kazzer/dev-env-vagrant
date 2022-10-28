@@ -1,1 +1,50 @@
-alias stun='dig +short myip.opendns.com @resolver2.opendns.com'
+alias stun='dig -4 +short myip.opendns.com A @resolver2.opendns.com; dig -6 +short myip.opendns.com AAAA @resolver2.opendns.com;'
+
+load_ssh_keys() {
+    if ! ssh-add -l &>/dev/null
+    then
+        ssh-add
+    fi
+}
+
+git() {
+    load_ssh_keys
+    $(which git) "${@}"
+}
+
+ssh() {
+    load_ssh_keys
+    $(which ssh) "${@}"
+}
+
+lock() {
+    if [ "$*" == "aws" ]
+    then
+        unset AWS_ACCESS_KEY_ID
+        unset AWS_SECRET_ACCESS_KEY
+        unset AWS_SESSION_TOKEN
+        unset AWS_SECURITY_TOKEN
+    elif [ "$*" == "ssh" ]
+    then
+        ssh-add -D &>/dev/null
+    fi
+}
+
+unlock() {
+    local output="No unlock method for '$1'"
+    if [ "$*" == "aws" ]
+    then
+        local override_user="${AWS_USER}"
+        local user=${override_user:-$(whoami)}
+        output=($(~/.aws/keyring.py "${user}"))
+    elif [ "$1" == "aws" ]
+    then
+        output=($(~/.aws/keyring.py "${@:2}"))
+    fi
+    if [ "${output}" == "export" ]
+    then
+        eval "${output[@]}"
+    else
+        echo "${output[@]}"
+    fi
+}
